@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado RSA en Navegador</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" media="all" href="styles.css" />
+    <script src="codigoJsCompleto.js"></script>
+
+</head>
+
+<header>
+    <nav class="navbar">
+        <div class="letter"><span>RSA</span><span class="rsa">Encrytion And
+                Decryption</span></div>
+        <ul class="nav-links">
+            <input type="checkbox" id="checkbox_toggle" />
+            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+            <div class="menu">
+                <li><img src="iconos/llaves.png" class="Icono"><a href="GenerarLlaves.html">Generar llaves RSA</a></li>
+                <li class="services" id="services-menu"><img src="iconos/candado.png" class="Icono">
+                    <a>Tipos de Cifrado</a>
+                    <ul class="dropdown" id="dropdown-menu">
+                        <li><a href="index.html">RSA/ECB/OAEPWithSHA-256AndMGF1Padding</a></li>
+                        <li><a href="RSA-ECB-OAEPWithSHA-1AndMGF1Padding.html">RSA/ECB/OAEPWithSHA-1AndMGF1Padding</a></li>
+                        <li><a href="RSA_PKCS1_PADDING.html">RSA_PKCS1_PADDING</a></li>
+                    </ul>
+                </li>
+                <li><img src="iconos/informacion.png" class="Icono"><a href="#">Que es RSA</a></li>
+            </div>
+        </ul>
+    </nav>
+
+</header>
+<br>
+
+<body>
+    <div class="gridGenerarLLaves">
+        <div class="c">
+            <div class="containerGenerarLlaves">
+                <form id="decryption-form" class="form_decryption">
+                    <h4 class="cif">Generador de llaves</h4>
+                    <select id="key-size">
+                        <option value="1024">1024 bits</option>
+                        <option value="2048">2048 bits</option>
+                        <option value="3072">3072 bits</option>
+                        <option value="4096">4096 bits</option>
+                    </select>
+                    <button type="button" id="generate-button">Generar Llaves</button><br>
+
+                    <textarea id="private-key" rows="5" readonly placeholder="Llave Privada"></textarea>
+                    <textarea id="public-key" rows="5" readonly placeholder="Llave Pública"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const keySizeSelect = document.getElementById("key-size");
+            const generateButton = document.getElementById("generate-button");
+            const privateKeyTextarea = document.getElementById("private-key");
+            const publicKeyTextarea = document.getElementById("public-key");
+
+            generateButton.addEventListener("click", async () => {
+                const keySize = parseInt(keySizeSelect.value);
+                const keyPair = await generateRSAKeyPair(keySize);
+
+                privateKeyTextarea.value = keyPair.privateKey;
+                publicKeyTextarea.value = keyPair.publicKey;
+            });
+
+            async function generateRSAKeyPair(keySize) {
+                const keyPair = await crypto.subtle.generateKey(
+                    {
+                        name: "RSA-OAEP",
+                        modulusLength: keySize,
+                        publicExponent: new Uint8Array([0x01, 0x00, 0x01]), // 65537
+                        hash: "SHA-256",
+                    },
+                    true,
+                    ["encrypt", "decrypt"]
+                );
+
+                const privateKey = await crypto.subtle.exportKey("pkcs8", keyPair.privateKey);
+                const publicKey = await crypto.subtle.exportKey("spki", keyPair.publicKey);
+
+                const privateKeyPEM = formatPEM(privateKey, "PRIVATE KEY");
+                const publicKeyPEM = formatPEM(publicKey, "PUBLIC KEY");
+
+                return { privateKey: privateKeyPEM, publicKey: publicKeyPEM };
+            }
+
+            function formatPEM(keyData, type) {
+                const base64String = arrayBufferToBase64String(keyData);
+                let pem = `-----BEGIN ${type}-----\n`;
+                pem += base64String.match(/.{1,64}/g).join('\n');
+                pem += `\n-----END ${type}-----\n`;
+                return pem;
+            }
+
+            function arrayBufferToBase64String(arrayBuffer) {
+                const byteArray = new Uint8Array(arrayBuffer);
+                let binaryString = '';
+                for (let i = 0; i < byteArray.byteLength; i++) {
+                    binaryString += String.fromCharCode(byteArray[i]);
+                }
+                return btoa(binaryString);
+            }
+        });
+    </script>
+</body><br><br><br><br><br>
+<footer>
+    2023 &copy; Cifrado y Decifrado Json con Distintos Algoritmos
+</footer>
+
+</html>

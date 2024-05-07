@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado RSA en Navegador</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" media="all" href="../styles.css" />
+    <script src="s.js"></script>
+</head>
+
+<header>
+    <nav class="navbar">
+        <div class="letter"><span>AES</span><span class="rsa">Encrytion And
+                Decryption</span></div>
+        <ul class="nav-links">
+            <input type="checkbox" id="checkbox_toggle" />
+            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+            <div class="menu">
+                <li><img src="iconos/llaves.png" class="Icono"><a href="GenerarLlaves.html">Generar llaves RSA</a></li>
+                <li class="services" id="services-menu"><img src="iconos/candado.png" class="Icono">
+                    <a>Tipos de Cifrado</a>
+                    <ul class="dropdown" id="dropdown-menu">
+                        <li><a href="index.html">RSA/ECB/OAEPWithSHA-256AndMGF1Padding</a></li>
+                        <li><a href="RSA-ECB-OAEPWithSHA-1AndMGF1Padding.html">RSA/ECB/OAEPWithSHA-1AndMGF1Padding</a></li>
+                        <li><a href="RSA_PKCS1_PADDING.html">RSA_PKCS1_PADDING</a></li>
+                    </ul>
+                </li>
+                <li><img src="iconos/candado.png" class="Icono"><a href="AES-NoPadding.html">AES</a></li>
+            </div>
+        </ul>
+    </nav>
+</header>
+<br>
+<body>
+    <div class="grid">
+        <div class="a">
+            <div class="info">
+                <span>Para Poder Cifrar y Decifrar Un JSON Es Necesario Agregar Un "-" Al Inicio Del Nombre Del
+                    Atributo</span>
+            </div>
+        </div>
+        <div class="b">
+            <div class="container">
+                <form id="encryption-form" class="form_encryption">
+                    <h4 class="cif">Cifrado AES/GCM/NoPadding</h4>
+                    <textarea id="accesoSimetrico" rows="1" placeholder="Acceso Simetrico" required></textarea>
+                    <textarea id="codigoAutentificacionHash" rows="1" placeholder="Codigo de Autentificacion Hash" required></textarea>
+                    <textarea id="message" rows="4" cols="50" required placeholder="JSON a Cifrar:"></textarea>
+                    <button type="button" id="encrypt-button">Cifrar</button>
+                    <br><label></label>
+                    <textarea id="encrypted-result-json" rows="6" cols="50" readonly placeholder="Resultado JSON Cifrado:"></textarea>
+                </form>
+            </div>
+        </div>
+        <div class="c">
+            <div class="container2">
+                <form id="decryption-form" class="form_decryption">
+                    <h4 class="cif">Decifrado AES/GCM/NoPadding</h4>
+                    <textarea id="accesoSimetricoDecifrado" rows="1" required placeholder="Acceso Simetrico"></textarea>
+                    <textarea id="codigoAutentificacionHashDecifrado" rows="1" required placeholder="Codigo de Autentificacion Hash"></textarea>
+                    <textarea id="messajedecifrar" rows="4" cols="50" required
+                        placeholder="JSON a Decifrar:"></textarea>
+                    <button type="button" id="desencrypt-button">Decifrar</button>
+                    <br><label></label>
+                    <textarea id="desencrypted-result-json" rows="6" cols="50" readonly placeholder="Resultado JSON Decifrado:"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    2023 &copy; Cifrado y Decifrado Json con Distintos Algoritmos
+</footer>
+
+</html>

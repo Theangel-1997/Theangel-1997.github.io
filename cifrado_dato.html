@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado RSA en Navegador</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" media="all" href="styles.css"/>
+    <script src="cifradoSha256Crypto.js"></script>
+</head>
+
+<body>
+    
+    <form id="encryption-form">
+        <h1>Cifrado RSA <h3>RSA/ECB/OAEPWithSHA-256AndMGF1Padding<h3></h1>
+        <label for="public-key">Clave Pública (PEM):</label>
+        <textarea id="public-key" rows="5" cols="50"></textarea><br>
+        <label for="message">Mensaje a Cifrar:</label>
+        <input type="text" id="message"><br>
+        <button type="button" id="encrypt-button">Cifrar</button>
+        <h2>Resultado:</h2>
+        <textarea id="encrypted-result" rows="10" cols="50" readonly></textarea>
+    </form>
+
+</body>
+
+</html>
