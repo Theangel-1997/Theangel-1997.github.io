@@ -453,6 +453,32 @@ button:hover {
          border: none;
          border-radius: 4px;
      }
+
+    .buttondos {
+         background-color: #248069;
+         font-family: sans-serif;
+         padding: 7px;
+         cursor: pointer;
+         width: 20%;
+         font-size: 16px;
+         color: white;
+         border: none;
+         border-radius: 4px;
+     }
+ 
+ 
+ .buttontres {
+         background-color: #1e8fa0;
+         font-family: sans-serif;
+         padding: 7px;
+         cursor: pointer;
+         width: 20%;
+         font-size: 16px;
+         color: white;
+         border: none;
+         border-radius: 4px;
+      }
+  
      .grid {
          grid-template-areas: "head"
              "menu"
